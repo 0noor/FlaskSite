@@ -1,8 +1,9 @@
 body{
     display: flex;
-    align-self: center;
+    align-items: center;
     justify-self: center;
 }
 .title{
     color: purple;
+    text-align: center;
 }
