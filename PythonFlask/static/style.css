@@ -1,7 +1,6 @@
 body{
-    display: flex;
-    align-self: center;
-    justify-self: center;
+    display: flexbox;
+    
 }
 .title{
     color: purple;
