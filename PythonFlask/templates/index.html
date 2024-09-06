@@ -28,5 +28,12 @@
             <button type="submit">Submit</button>
         </form>
     </div>
+    <main>
+        <ul>
+            {%for todo in todos%}
+            <li>{{todo["Task"]}}
+            {% endfor %}
+        </ul>
+    </main>
 </body>
 </html>

@@ -7,7 +7,7 @@ client = MongoClient("localhost", 27017)
 
 db = client.todoDB
 
-todo = db.todo
+todos = db.todo
 
 
 
@@ -19,11 +19,12 @@ todo = db.todo
 
 @app.route('/')
 def index():
-    return render_template("index.html",)
+    all_tasks = todos.find()
+    return render_template("index.html",todos = all_tasks)
 
 @app.route('/addtodo', methods=["GET","POST"])
 def grab_task():
-    todo.insert_one({"Task": request.form['task'], 
+    todos.insert_one({"Task": request.form['task'], 
     "StartDate": request.form['startDate'],
     "EndDate": request.form['endDate'],
     "localTime": request.form['todaysDate']})
