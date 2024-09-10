@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WhatchaDoing?</title>
     <link rel="stylesheet" href="static/style.css">
-    <script src="script.js"></script>
+    
 </head>
 <body>
     <div class="container">
@@ -16,24 +16,32 @@
             <label for="task">Task: </label>
             <input type="text" name="task" id="task" required>
 
-            <label for="startDate">Start Date: </label>
-            <input type="date" name="startDate" id="startDate" required>
+            <label for="dueDate">Due Date: </label>
+            <input type="date" name="dueDate" id="dueDate" required>
 
-            <label for="endDate">End Date: </label>
-            <input type="month" name="endDate" id="endDate" required>
-
-            <label for="todaysDate">Todays Date:</label>
-            <input type="datetime-local" name="todaysDate" id="todaysDate">
+           
 
             <button type="submit">Submit</button>
         </form>
     </div>
-    <main>
-        <ul>
-            {%for todo in todos%}
-            <li>{{todo["Task"]}}
-            {% endfor %}
-        </ul>
-    </main>
+    <div class="card">
+        <div class="cardT">
+            <h3 id="Today"></h3>
+        </div>
+        <hr>
+        <div class="task">
+        
+            
+                {%for todo in todos%}
+                <p class="tasks">{{todo["Task"]}}</p>
+                {%if len(todos) %}
+                    <hr>
+                    
+                {% endfor %}
+            
+
+        </div>
+    </div>
+    <script src="static/script.js"></script>
 </body>
 </html>

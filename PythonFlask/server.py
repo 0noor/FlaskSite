@@ -25,9 +25,7 @@ def index():
 @app.route('/addtodo', methods=["GET","POST"])
 def grab_task():
     todos.insert_one({"Task": request.form['task'], 
-    "StartDate": request.form['startDate'],
-    "EndDate": request.form['endDate'],
-    "localTime": request.form['todaysDate']})
+    "dueDate": request.form['dueDate']})
     return redirect(url_for('index'))
 
 # @app.route('/user')
