@@ -33,9 +33,10 @@
         
             
                 {%for todo in todos%}
-                <p class="tasks">{{todo["Task"]}}</p>
-                {%if len(todos) %}
-                    <hr>
+                <h4 class="tasks">`{{todo["Task"]}}`</h4> 
+                <h5 class="Due"> Due: {{todo["dueDate"]}}</h5>
+                   
+                     <hr>
                     
                 {% endfor %}
             

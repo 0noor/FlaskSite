@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request,redirect,url_for
-import pymongo
 from pymongo import MongoClient     
 app = Flask(__name__)
 
@@ -19,7 +18,7 @@ todos = db.todo
 
 @app.route('/')
 def index():
-    all_tasks = todos.find()
+    all_tasks = todos.find({}).sort({'dueDate': 1 })
     return render_template("index.html",todos = all_tasks)
 
 @app.route('/addtodo', methods=["GET","POST"])
@@ -28,6 +27,29 @@ def grab_task():
     "dueDate": request.form['dueDate']})
     return redirect(url_for('index'))
 
+@app.route("/delete", methods=["EDIT"])
+def delete_task():
+    todos.delete_one({})
+
+@app.route('/login', methods=["GET","POST"])
+def log_in():
+    todos.insert_one({"Task": request.form['task'], 
+    "dueDate": request.form['dueDate']})
+    return redirect(url_for('index'))
+
+# @app.route('/add_todo', methods=['POST'])
+# def add_todo():
+    
+
 # @app.route('/user')
 # def greet_user():
 #     return "<h1>Hello User</h1>"
+
+
+# todo.insert_one({"Task": "Finish Workout"})
+
+
+
+# for todo in todo.find():
+#     print(todo)
+
