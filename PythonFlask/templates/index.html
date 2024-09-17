@@ -5,12 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WhatchaDoing?</title>
     <link rel="stylesheet" href="static/style.css">
-    <script src="script.js"></script>
+    
 </head>
 <body>
     <div class="container">
         <h1 class="title">WhatchaDoing?</h1>
     </div>
-    <form action="" method="post"></form>
+    <div>
+        <form action="{{ url_for('grab_task') }}" method="post">
+            <label for="task">Task: </label>
+            <input type="text" name="task" id="task" required>
+
+            <label for="dueDate">Due Date: </label>
+            <input type="date" name="dueDate" id="dueDate" required>
+
+           
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="card">
+        <div class="cardT">
+            <h3 id="Today"></h3>
+        </div>
+        <hr>
+        <div class="task">
+        
+            
+                {%for todo in todos%}
+                <p class="tasks">{{todo["Task"]}}</p>
+                {%if len(todos) %}
+                    <hr>
+                    
+                {% endfor %}
+            
+
+        </div>
+    </div>
+    <script src="static/script.js"></script>
 </body>
 </html>
