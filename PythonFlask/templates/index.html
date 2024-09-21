@@ -28,20 +28,27 @@
         <div class="cardT">
             <h3 id="Today"></h3>
         </div>
-        <hr>
-        <div class="task">
+         <hr>
+        <div id="task">
         
-            
+            <ul>
                 {%for todo in todos%}
-                <p class="tasks">{{todo["Task"]}}</p>
-                {%if len(todos) %}
-                    <hr>
+                <div id="group">
+                    <li><span id="tasks">{{todo["Task"]}}</span>  <br> <span id="dueDate">{{todo["dueDate"]}}</span></li>
+                    <form action="{{url_for('delete', id = todo['_id'])}}" method="post">
+                        <button type="submit">X</button>
+                    </form>
+                </div>
+                    {% if not loop.last  %}
+                        <hr>
+                    {%endif%}
                     
                 {% endfor %}
-            
+            </ul>
 
         </div>
     </div>
+   
     <script src="static/script.js"></script>
 </body>
 </html>
