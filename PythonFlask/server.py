@@ -19,7 +19,7 @@ todos = db.todo
 
 @app.route('/')
 def index():
-    all_tasks = todos.find()
+    all_tasks = todos.find().sort("dueDate",1)
     return render_template("index.html",todos = all_tasks)
 
 @app.route('/addtodo', methods=["GET","POST"])
