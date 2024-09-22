@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request,redirect,url_for
 from pymongo import MongoClient     
+from bson.objectid import ObjectId
 app = Flask(__name__)
 
 client = MongoClient("localhost", 27017)
@@ -24,18 +25,15 @@ def index():
 @app.route('/addtodo', methods=["GET","POST"])
 def grab_task():
     todos.insert_one({"Task": request.form['task'], 
-    "dueDate": request.form['dueDate']})
+    "dueDate": request.form['dueDate'],
+    "completed": False})
     return redirect(url_for('index'))
 
-@app.route("/delete", methods=["EDIT"])
-def delete_task():
-    todos.delete_one({})
-
-@app.route('/login', methods=["GET","POST"])
-def log_in():
-    todos.insert_one({"Task": request.form['task'], 
-    "dueDate": request.form['dueDate']})
+@app.route('/delete/<id>', methods=["POST"])
+def delete(id):
+    todos.delete_one({"_id": ObjectId(id)})
     return redirect(url_for('index'))
+
 
 # @app.route('/add_todo', methods=['POST'])
 # def add_todo():
