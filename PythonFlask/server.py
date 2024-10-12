@@ -10,10 +10,45 @@ db = client.todoDB
 
 todos = db.todo
 
-users = db.user
+users = db.users
+
+tasks_validator = {
+    '$jasonScema': {
+        'bsonType': 'object',
+        'required': ['Task','dueDate'],
+        'properties': {
+            'Task': {'bsontype': 'string'},
+            'dueDate':{'bsontype': 'date'},
+        }
+    }
+}
+
+#     }
+# }
+users_validator= {
+    '$jsonSchema': {
+    'bsonType': "object",
+    'required': ["username", "email", "salt", "hash" ],
+    'properties': {
+        'username':{
+            'bsonType': 'string'},
+        'email':{
+            'bsonType': "string",
+            
+        },
+        'salt':{
+            'bsonType': 'binData'
+        },
+        'hash':{
+            'bsonType': 'binData'
+        }
+
+            }
+        }
+    }
 
 
-
+# todos.command('collMod','todo', validator = tasks_validator)
 # todo.delete_many({"Task": "Finish Workout", "done": False})
 
 # for todo in todo.find():
@@ -45,7 +80,21 @@ def register():
         bytes =  request.form["password"].encode('utf-8')
         salt = bcrypt.gensalt()
         hash = bcrypt.hashpw(bytes,salt)
-        users.insert_one({"username": request.form["username"],"email": request.form["email"],"salt": salt,"hash": hash})
+        filter = {"name": "users"}
+        if(db.list_collection_names(filter = filter) == []):
+            
+            db.create_collection("users",validator=users_validator)
+            users.create_index('email', unique = True)
+            users.insert_one({"username": request.form["username"],"email": request.form["email"],"salt": salt,"hash": hash})
+            
+        else:
+            # print(request.form['email'])
+            users.insert_one({"username": request.form["username"],"email": request.form["email"],"salt": salt,"hash": hash})
+            
+
+        
+
+        
         return redirect(url_for("index"))
     
     return render_template("register.html")
@@ -53,8 +102,15 @@ def register():
 @app.route('/login', methods=["POST","GET"])
 def log_in():
     if request.method == "POST":
-        return redirect(url_for("index"))
-    print(users.find({"email":  request.form["email"]}))
+        user = users.find_one({'email': request.form['email']})
+        if(user):
+            passBytes = request.form['password'].encode('utf-8')
+
+            if(bcrypt.checkpw(passBytes, user['hash'])):
+                return redirect(url_for("index"))
+            
+        else:
+            print("Not Found")
     return render_template("login.html")
     
 
