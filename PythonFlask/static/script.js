@@ -15,7 +15,7 @@
     
     let due = document.querySelectorAll("span#dueDate")
 
-    let tasks = document.querySelectorAll("li")
+    let tasks = document.querySelectorAll("span#tasks")
     
     let i = 0
     while(i < tasks.length){
