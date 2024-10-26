@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request,redirect,url_for
+from flask import Flask, render_template, request,redirect, session,url_for
 from pymongo import MongoClient     
 from bson.objectid import ObjectId
 import bcrypt
@@ -11,6 +11,8 @@ db = client.todoDB
 todos = db.todo
 
 users = db.users
+
+app.secret_key = 'BAD_SECRET_KEY'
 
 tasks_validator = {
     '$jasonScema': {
@@ -62,9 +64,10 @@ def index():
 
 @app.route('/addtodo', methods=["POST"])
 def grab_task():
-    todos.insert_one({"Task": request.form['task'], 
-    "dueDate": request.form['dueDate'],
-    "completed": False})
+    if session['username']:
+        todos.insert_one({"Task": request.form['task'], 
+        "dueDate": request.form['dueDate'],
+        "username": session['username']})
     return redirect(url_for('index'))
 
 @app.route('/delete/<id>', methods=["POST"])
@@ -89,6 +92,7 @@ def register():
             
         else:
             # print(request.form['email'])
+            session['username'] =request.form["username"]
             users.insert_one({"username": request.form["username"],"email": request.form["email"],"salt": salt,"hash": hash})
             
 
@@ -105,18 +109,16 @@ def log_in():
         user = users.find_one({'email': request.form['email']})
         if(user):
             passBytes = request.form['password'].encode('utf-8')
-
             if(bcrypt.checkpw(passBytes, user['hash'])):
+                session['username'] = user["username"]
                 return redirect(url_for("index"))
             
-        else:
-            print("Not Found")
     return render_template("login.html")
     
 
 
 
-# todo.insert_one({"Task": "Finish Workout"})
+
 
 
 
