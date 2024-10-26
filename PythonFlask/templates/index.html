@@ -33,16 +33,19 @@
         
             <ul>
                 {%for todo in todos%}
+                    {%if session['username'] == todo['username']%}
                 <div id="group">
-                    <li><span id="tasks">{{todo["Task"]}}</span>  <br> <span id="dueDate">{{todo["dueDate"]}}</span></li>
-                    <form action="{{url_for('delete', id = todo['_id'])}}" method="post">
-                        <button type="submit">X</button>
-                    </form>
-                </div>
-                    {% if not loop.last  %}
-                        <hr>
-                    {%endif%}
                     
+                        <li><span id="tasks">{{todo["Task"]}}</span>  <br> <span id="dueDate">{{todo["dueDate"]}}</span></li>
+                        <form action="{{url_for('delete', id = todo['_id'])}}" method="post">
+                            <button type="submit">X</button>
+                        </form>
+                    
+                </div>
+                        {% if not loop.last  %}
+                            <hr>
+                        {%endif%}
+                    {%endif%}
                 {% endfor %}
             </ul>
 
