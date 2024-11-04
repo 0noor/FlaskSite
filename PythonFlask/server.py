@@ -56,24 +56,32 @@ users_validator= {
 # for todo in todo.find():
 #     print(todo)
 
-
 @app.route('/')
-def index():
-    all_tasks = todos.find({}).sort({'dueDate': 1 })
-    return render_template("index.html",todos = all_tasks)
+def home():
+    return render_template('home.html')
+
+
+@app.route('/dashboard')
+def dashboard():
+
+    if session:
+        print('hello')
+        all_tasks = todos.find({}).sort({'dueDate': 1 })
+        return render_template("dashboard.html",todos = all_tasks)
+    return render_template('dashboard.html')
 
 @app.route('/addtodo', methods=["POST"])
 def grab_task():
-    if session['username']:
+    if session:
         todos.insert_one({"Task": request.form['task'], 
         "dueDate": request.form['dueDate'],
-        "username": session['username']})
-    return redirect(url_for('index'))
+        "email": session['email']})
+    return redirect(url_for('dashboard'))
 
 @app.route('/delete/<id>', methods=["POST"])
 def delete(id):
     todos.delete_one({"_id": ObjectId(id)})
-    return redirect(url_for('index'))
+    return redirect(url_for('dashboard'))
 
 
 
@@ -92,14 +100,14 @@ def register():
             
         else:
             # print(request.form['email'])
-            session['username'] =request.form["username"]
+            session['email'] =request.form["email"]
             users.insert_one({"username": request.form["username"],"email": request.form["email"],"salt": salt,"hash": hash})
             
 
         
 
         
-        return redirect(url_for("index"))
+        return redirect(url_for("dashboard"))
     
     return render_template("register.html")
 
@@ -110,13 +118,16 @@ def log_in():
         if(user):
             passBytes = request.form['password'].encode('utf-8')
             if(bcrypt.checkpw(passBytes, user['hash'])):
-                session['username'] = user["username"]
-                return redirect(url_for("index"))
+                session['email'] = user["email"]
+                return redirect(url_for("dashboard"))
             
     return render_template("login.html")
     
 
-
+@app.route('/logout')
+def log_out():
+    session.pop('email')
+    return redirect(url_for('log_in'))
 
 
 
