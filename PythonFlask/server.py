@@ -53,8 +53,7 @@ users_validator= {
 # todos.command('collMod','todo', validator = tasks_validator)
 # todo.delete_many({"Task": "Finish Workout", "done": False})
 
-# for todo in todo.find():
-#     print(todo)
+
 
 @app.route('/')
 def home():
@@ -65,7 +64,6 @@ def home():
 def dashboard():
 
     if session:
-        print('hello')
         all_tasks = todos.find({}).sort({'dueDate': 1 })
         return render_template("dashboard.html",todos = all_tasks)
     return render_template('dashboard.html')
@@ -73,9 +71,12 @@ def dashboard():
 @app.route('/addtodo', methods=["POST"])
 def grab_task():
     if session:
+        use = users.find_one({'email': session['email']})
         todos.insert_one({"Task": request.form['task'], 
         "dueDate": request.form['dueDate'],
-        "email": session['email']})
+        'email':use['email'],
+        'username': use['username']
+        })
     return redirect(url_for('dashboard'))
 
 @app.route('/delete/<id>', methods=["POST"])
@@ -99,7 +100,7 @@ def register():
             users.insert_one({"username": request.form["username"],"email": request.form["email"],"salt": salt,"hash": hash})
             
         else:
-            # print(request.form['email'])
+            
             session['email'] =request.form["email"]
             users.insert_one({"username": request.form["username"],"email": request.form["email"],"salt": salt,"hash": hash})
             
@@ -133,6 +134,4 @@ def log_out():
 
 
 
-# for todo in todo.find():
-#     print(todo)
 
