@@ -4,16 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="static/navstyle.css">
 </head>
 <body>
-    <a href="/home">home</a>
+    <div id="navbars">
+    <a id="navuser" href="/home">WhatchaDoing?</a>
     {% if session %} 
-        <a href="{{url_for('log_out')}}">logout</a>
+    <ul>
+        <li><a id="navuser" href="{{url_for('log_out')}}">logout</a></li>
+    </ul>
 
     {%else%}
-        <a href="/login">login</a>  
-        <a href="/register">register</a>
+    <ul>
+      <li><a id="navuser"  href="/login">login</a>  </li> 
+       <li> <a id="navuser" href="/register">register</a> </li>
+    </ul>
     {%endif%}
-        
+</div>
 </body>
 </html>
