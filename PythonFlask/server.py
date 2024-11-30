@@ -17,7 +17,7 @@ app.secret_key = 'BAD_SECRET_KEY'
 tasks_validator = {
     '$jasonScema': {
         'bsonType': 'object',
-        'required': ['Task','dueDate'],
+        'required': ['Task','dueDate','email'],
         'properties': {
             'Task': {'bsontype': 'string'},
             'dueDate':{'bsontype': 'date'},
