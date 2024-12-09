@@ -1,5 +1,9 @@
-.title{
-    color: purple;
+header{
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    top: 0%;
+    height: 60px;
 }
 
 /* .container{
@@ -7,25 +11,60 @@
     width: 100%; 
 } */
 
+.container{
+   margin-top: 100px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   min-height: fit-content;
+   min-width: fit-content;
+   position: relative;
+}
+
 h3{
     text-align: center;
 }
-/* form{
-    position: absolute;
-} */
 
 .card{
+    
     box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
-    min-height: 400px;
-    width: 30%;
+    width: fit-content;
     height: auto;
     text-align: center;
     border-radius: 10%;
-    position: absolute;
+    position: relative;
 }
 
-li{
+.card li{
     list-style-type: none;
-    display: inline-block;
+    margin-right: 0px;
 }
+
+#tasker{        
+    border-bottom-right-radius: 5%;
+    border-bottom-left-radius: 5%;
+}
+
+
+#group{
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+
+#group li{
+    width: 50%;
+    overflow-wrap: anywhere;
+}
+
+
+#group form{
+    position: fixed;
+    width:70%;
+    display: flex;
+    justify-content: flex-end;
+    
+    
+}
+
 

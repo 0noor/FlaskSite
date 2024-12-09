@@ -1,4 +1,4 @@
-{%include 'navbar.html'%}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,27 +9,34 @@
     
 </head>
 <body>
+    <header>
+        {%include 'navbar.html'%}
+    </header>
     <div class="container">
     
-        <div>
-            <form action="{{ url_for('grab_task') }}" method="post">
-                <label for="task">Task: </label>
-                <input type="text" name="task" id="task" required>
-
-                <label for="dueDate">Due Date: </label>
-                <input type="date" name="dueDate" id="dueDate" required>
-
-            
-
-                <button type="submit">Submit</button>
-            </form>
-        </div>
         <div class="card">
-            <div class="cardT">
-                <h3 id="Today"></h3>
-            </div>
+            
+                <div class="cardT">
+                    <h2>Welcome: {{session['username']}}</h2>
+                    <h3 id="Today">Todays date is: </h3>
+                </div>
+                <hr>
+                <div class="taskform">
+                    <form action="{{ url_for('grab_task') }}" method="post">
+                        <label for="task">Task: </label>
+                        <input type="text" name="task" id="task" required>
+        
+                        <label for="dueDate">Due Date: </label>
+                        <input type="date" name="dueDate" id="dueDate" required>
+        
+                    
+        
+                        <button type="submit">Submit</button>
+                    </form>
+                 </div>
             <hr>
-            <div id="task">
+        
+            <div id="tasker">
             
                 <ul>
                     {%for todo in todos%} 
@@ -46,7 +53,8 @@
                                     {% if not loop.last  %}
                                         <hr>
                                     {%endif%}
-                      
+                        {%elif session["email"]==""%}
+                            <div id="group"><p>You need to be logged in</p></div>
                         {%endif%}
                         
                     {% endfor %}

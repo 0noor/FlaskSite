@@ -6,13 +6,13 @@ body{
     margin-top: 0%;
 }
 
-a{
+#navbars a{
     text-decoration: none;
     color: whitesmoke;
     font-size: 30px;
     font-weight: 700;
 }
-li{
+#navbars li{
     display: inline-block;
     margin-right: 50px;
 }
