@@ -11,7 +11,7 @@
 
     let today = [year, month, day].join('-');
    
-    document.getElementById("Today").innerHTML = today;
+    document.getElementById("Today").innerHTML += today;
     
     let due = document.querySelectorAll("span#dueDate")
 

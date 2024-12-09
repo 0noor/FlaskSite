@@ -102,6 +102,7 @@ def register():
         else:
             
             session['email'] =request.form["email"]
+            session['username'] = request.form['username']
             users.insert_one({"username": request.form["username"],"email": request.form["email"],"salt": salt,"hash": hash})
             
 
@@ -120,6 +121,7 @@ def log_in():
             passBytes = request.form['password'].encode('utf-8')
             if(bcrypt.checkpw(passBytes, user['hash'])):
                 session['email'] = user["email"]
+                session['username'] = user['username']
                 return redirect(url_for("dashboard"))
             
     return render_template("login.html")
@@ -128,6 +130,7 @@ def log_in():
 @app.route('/logout')
 def log_out():
     session.pop('email')
+    session.pop('username')
     return redirect(url_for('log_in'))
 
 

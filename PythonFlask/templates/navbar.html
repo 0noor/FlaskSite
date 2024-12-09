@@ -8,18 +8,18 @@
 </head>
 <body>
     <div id="navbars">
-    <a id="navuser" href="/">WhatchaDoing?</a>
-    {% if session %} 
-    <ul>
-        <li><a id="navuser" href="{{url_for('log_out')}}">logout</a></li>
-    </ul>
+        <a id="navuser" href="/">WhatchaDoing?</a>
+        {% if session %} 
+        <ul>
+            <li><a id="navuser" href="{{url_for('log_out')}}">logout</a></li>
+        </ul>
 
-    {%else%}
-    <ul>
-      <li><a id="navuser"  href="/login">login</a>  </li> 
-       <li> <a id="navuser" href="/register">register</a> </li>
-    </ul>
-    {%endif%}
-</div>
+        {%else%}
+        <ul>
+        <li><a id="navuser"  href="/login">login</a>  </li> 
+        <li> <a id="navuser" href="/register">register</a> </li>
+        </ul>
+        {%endif%}
+    </div>
 </body>
 </html>
