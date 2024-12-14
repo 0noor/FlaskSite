@@ -1,0 +1,35 @@
+header{
+    position: fixed;
+    width: 100%;
+    top: 0%;
+}
+html{
+    height: 100%;
+}
+body{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+}
+
+main{
+    width: 50%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    
+}
+#paper{
+    width: 50%;
+    height: 100%;
+    background-color: aliceblue;
+    display: flex;
+    justify-content: center;
+    
+}
+
+#paper a{
+    align-self: baseline;
+}

@@ -59,8 +59,8 @@ h3{
 
 
 #group form{
-    position: fixed;
-    width:70%;
+    position: absolute;
+    width:80%;
     display: flex;
     justify-content: flex-end;
     
