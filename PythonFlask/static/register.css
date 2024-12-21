@@ -1,0 +1,24 @@
+header{
+    position: fixed;
+    width: 100%;
+    top: 0%;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+#register{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+form{
+    display: flex;
+    flex-flow: column;
+}
+
+form input{
+    width: 400px;
+}

@@ -1,4 +1,4 @@
-{%include 'navbar.html'%}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,17 +8,21 @@
     <link rel="stylesheet" href="static/register.css">
 </head>
 <body>
-    <form action="{{url_for('register')}}" method="post">
-        <label for="email">Email: </label>
-        <input type="email" name="email" id="email">
-    
-        <label for="username">Name: </label>
-        <input type="text" name="username" id="username">
-    
-        <label for="password">Password: </label>
-        <input type="password" name="password" id="password">
-    
-        <button type="submit">Submit</button>
-    </form>
+    <header>{%include 'navbar.html'%}</header>
+    <div id="register">
+        <h1>Register</h1>
+        <form action="{{url_for('register')}}" method="post">
+            <label for="email">Email: </label>
+            <input type="email" name="email" id="email">
+        
+            <label for="username">Name: </label>
+            <input type="text" name="username" id="username">
+        
+            <label for="password">Password: </label>
+            <input type="password" name="password" id="password">
+        
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 </body>
 </html>
